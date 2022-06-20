@@ -8,25 +8,22 @@ import lombok.NoArgsConstructor;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.Table;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
-@Table(name = "users")
-public class User extends BaseEntity{
-    @Id
-    @GeneratedValue
+public class Item {
+    @Id @GeneratedValue
     private Long id;
     private String name;
-    private String email;
-    private String password;
+    private int price;
+    private int quantity;
 
     @Builder
-    private User(Long id, String name, String email, String password) {
+    private Item(Long id, String name, int price, int quantity) {
         this.id = id;
         this.name = name;
-        this.email = email;
-        this.password = password;
+        this.price = price;
+        this.quantity = quantity;
     }
 }

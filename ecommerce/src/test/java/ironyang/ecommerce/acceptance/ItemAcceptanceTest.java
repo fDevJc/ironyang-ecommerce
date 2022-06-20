@@ -1,7 +1,8 @@
 package ironyang.ecommerce.acceptance;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import ironyang.ecommerce.web.request.JoinRequest;
+import ironyang.ecommerce.web.request.ItemRequest;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -17,25 +18,25 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @AutoConfigureMockMvc
 @SpringBootTest
-public class UserAcceptanceTest {
-    @Autowired MockMvc mvc;
+public class ItemAcceptanceTest {
+    @Autowired
+    MockMvc mvc;
 
     @Test
-    void joinAndFindUser() throws Exception {
+    void addItemAndFindItem() throws Exception {
+        ItemRequest itemRequest = new ItemRequest("토마토", 10_000, 100);
         //given
-        JoinRequest joinRequest = new JoinRequest("fdevjc@gmail.com","password");
-        ObjectMapper objectMapper = new ObjectMapper();
-        String content = objectMapper.writeValueAsString(joinRequest);
-        mvc.perform(post("/users")
+        mvc.perform(post("/items")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(content))
+                        .content(new ObjectMapper().writeValueAsString(itemRequest)))
                 .andExpect(status().isCreated())
                 .andDo(print());
         //when
-        mvc.perform(get("/users/1")
+        mvc.perform(get("/items/1")
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+//                .andExpect(content().string())
                 .andDo(print());
         //then
     }

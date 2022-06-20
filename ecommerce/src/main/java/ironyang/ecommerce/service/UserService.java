@@ -1,5 +1,6 @@
 package ironyang.ecommerce.service;
 
+import ironyang.ecommerce.exception.NotFoundUserException;
 import ironyang.ecommerce.repository.UserRepository;
 import ironyang.ecommerce.service.dto.UserDto;
 import lombok.RequiredArgsConstructor;
@@ -18,6 +19,10 @@ public class UserService {
     }
 
     public UserDto findUser(Long id) {
-        return UserDto.of(userRepository.findById(id).orElseThrow(()->new RuntimeException()));
+        return UserDto.of(
+                userRepository.findById(id)
+                        .orElseThrow(() -> new NotFoundUserException(String.format("Not found User id=%s", id)))
+        );
     }
+
 }

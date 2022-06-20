@@ -18,15 +18,12 @@ public class UserController {
 
     @PostMapping("/users")
     public ResponseEntity join(@RequestBody JoinRequest joinRequest) {
-        log.info("UserController.join().joinRequest={}", joinRequest);
         userService.addUser(joinRequest.toDto());
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @GetMapping("/users/{id}")
     public ResponseEntity<UserResponse> findUser(@PathVariable("id") Long id) {
-        UserDto userDto = userService.findUser(id);
-        UserResponse userResponse = UserResponse.of(userDto);
-        return ResponseEntity.status(HttpStatus.OK).body(userResponse);
+        return ResponseEntity.status(HttpStatus.OK).body(UserResponse.of(userService.findUser(id)));
     }
 }

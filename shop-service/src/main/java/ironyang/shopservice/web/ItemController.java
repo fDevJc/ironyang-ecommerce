@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
+@RequestMapping("/shop-service")
 @RestController
 public class ItemController {
     private final ItemService itemService;

@@ -13,11 +13,6 @@ import org.springframework.web.bind.annotation.*;
 public class SellerController {
     private final SellerService sellerService;
 
-    @GetMapping("/health-check")
-    public ResponseEntity healthCheck() {
-        return ResponseEntity.ok("health!!");
-    }
-
     @PostMapping("/sellers")
     public ResponseEntity join(@RequestBody SellerJoinRequest sellerJoinRequest) {
         sellerService.addSeller(sellerJoinRequest.toDto());

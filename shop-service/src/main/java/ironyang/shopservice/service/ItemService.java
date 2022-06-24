@@ -27,7 +27,7 @@ public class ItemService {
                 .name(itemDto.getName())
                 .quantity(itemDto.getQuantity())
                 .price(itemDto.getPrice())
-                .seller(Seller.builder().id(itemDto.getId()).build())
+//                .shop()
                 .category(itemDto.getCategory())
                 .build();
         itemRepository.save(item);

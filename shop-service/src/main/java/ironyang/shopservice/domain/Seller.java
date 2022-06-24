@@ -5,10 +5,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -23,8 +20,12 @@ public class Seller {
     private String email;
     private String password;
 
+    @OneToOne
+    @JoinColumn(name = "shop_id")
+    private Shop shop;
+
     @Builder
-    public Seller(Long id, String name, String email, String password) {
+    private Seller(Long id, String name, String email, String password) {
         this.id = id;
         this.name = name;
         this.email = email;

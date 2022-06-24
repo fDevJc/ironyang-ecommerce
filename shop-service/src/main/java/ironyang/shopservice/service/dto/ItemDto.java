@@ -31,6 +31,7 @@ public class ItemDto {
                 .name(item.getName())
                 .price(item.getPrice())
                 .quantity(item.getQuantity())
+                .categoryName(item.getCategory().name())
                 .build();
     }
 

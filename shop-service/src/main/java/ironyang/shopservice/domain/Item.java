@@ -19,19 +19,20 @@ public class Item {
     private int price;
     private int quantity;
 
+    @Enumerated(EnumType.STRING)
     private Category category;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "seller_id")
-    private Seller seller;
+    @JoinColumn(name = "shop_id")
+    private Shop shop;
 
     @Builder
-    public Item(Long id, String name, int price, int quantity, Category category, Seller seller) {
+    private Item(Long id, String name, int price, int quantity, Category category, Shop shop) {
         this.id = id;
         this.name = name;
         this.price = price;
         this.quantity = quantity;
         this.category = category;
-        this.seller = seller;
+        this.shop = shop;
     }
 }

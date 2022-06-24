@@ -1,35 +1,27 @@
 package ironyang.shopservice.acceptance;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import ironyang.shopservice.domain.Category;
+import ironyang.shopservice.util.MvcResultConvertor;
 import ironyang.shopservice.web.request.ItemRequest;
 import ironyang.shopservice.web.response.ItemResponse;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
-import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.web.servlet.ResultActions;
 
-import java.nio.charset.StandardCharsets;
 import java.util.List;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@AutoConfigureMockMvc
-@SpringBootTest
-public class ItemAcceptanceTest {
+@Rollback
+public class ItemAcceptanceTest extends AcceptanceTest{
     private static final String ITEMS_REQUEST_URL = "/items";
-    @Autowired
-    MockMvc mvc;
+    private static final String REQUEST_URL = SERVICE_NAME_URL + ITEMS_REQUEST_URL;
 
     @DisplayName("아이템을 등록한다")
     @Test
@@ -46,15 +38,9 @@ public class ItemAcceptanceTest {
         //given
         requestAddItem();
         //when && then
-        mvc.perform(get(ITEMS_REQUEST_URL)
-                        .accept(MediaType.APPLICATION_JSON))
+        mvc.perform(get(REQUEST_URL).accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andDo(result ->
-                        {
-                            List<ItemResponse> itemResponses = new JsonConvertor<ItemResponse>().convertToList(result.getResponse().getContentAsString(StandardCharsets.UTF_8));
-                            Assertions.assertThat(itemResponses.size()).isEqualTo(1);
-                        }
-                )
+                .andExpect(result -> assertThat(MvcResultConvertor.convertToList(result, ItemResponse.class).size()).isNotEqualTo(0))
                 .andDo(print());
     }
 
@@ -67,15 +53,8 @@ public class ItemAcceptanceTest {
                 .sellerId("1")
                 .build();
 
-        return mvc.perform(post(ITEMS_REQUEST_URL)
+        return mvc.perform(post(REQUEST_URL)
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(new ObjectMapper().writeValueAsString(itemRequest)));
-    }
-
-    public static class JsonConvertor<T> {
-        public List<T> convertToList(String json) throws JsonProcessingException {
-            return new ObjectMapper().readValue(json, new TypeReference<>() {
-            });
-        }
+                .content(objectMapper.writeValueAsString(itemRequest)));
     }
 }

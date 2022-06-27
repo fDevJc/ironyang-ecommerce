@@ -25,10 +25,10 @@ public class ShopAcceptanceTest extends AcceptanceTest{
     void addShop() throws Exception {
         //given
         ShopAddRequest content = ShopAddRequest.builder()
-                .name("shopName")
-                .address("seoul")
-                .businessNumber("1223123")
-                .phone("123-123-123")
+                .name("교촌치킨 사당점")
+                .address("서울시 관악구")
+                .businessNumber("122312312")
+                .phone("02-123-1234")
                 .build();
 
         //when && then

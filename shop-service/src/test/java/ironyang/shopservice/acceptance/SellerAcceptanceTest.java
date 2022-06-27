@@ -18,7 +18,7 @@ public class SellerAcceptanceTest extends AcceptanceTest{
     private static final String ITEMS_REQUEST_URL = "/sellers";
     private static final String REQUEST_URL = SERVICE_NAME_URL + ITEMS_REQUEST_URL;
 
-    @DisplayName("판매자가 회원가입을 한다")
+    @DisplayName("셀러가 회원가입을 한다")
     @Test
     void join() throws Exception {
         //given
@@ -35,7 +35,7 @@ public class SellerAcceptanceTest extends AcceptanceTest{
                 .andDo(print());
     }
 
-    @DisplayName("판매자의 세부정보를 등록합니다.")
+    @DisplayName("셀러의 세부정보를 등록합니다.")
     @Test
     void modifySeller() {
         //given
@@ -44,4 +44,5 @@ public class SellerAcceptanceTest extends AcceptanceTest{
 
         //then
     }
+
 }

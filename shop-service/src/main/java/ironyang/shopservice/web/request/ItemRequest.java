@@ -13,15 +13,13 @@ public class ItemRequest {
     private int quantity;
 
     private String categoryName;
-    private String sellerId;
 
     @Builder
-    public ItemRequest(String name, int price, int quantity, String categoryName, String sellerId) {
+    public ItemRequest(String name, int price, int quantity, String categoryName) {
         this.name = name;
         this.price = price;
         this.quantity = quantity;
         this.categoryName = categoryName;
-        this.sellerId = sellerId;
     }
 
     public ItemDto toDto() {
@@ -30,7 +28,6 @@ public class ItemRequest {
                 .price(price)
                 .quantity(quantity)
                 .categoryName(categoryName)
-                .sellerId(sellerId)
                 .build();
     }
 }

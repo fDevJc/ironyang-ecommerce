@@ -10,8 +10,6 @@ import org.springframework.http.MediaType;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.web.servlet.ResultActions;
 
-import java.util.List;
-
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -50,7 +48,6 @@ public class ItemAcceptanceTest extends AcceptanceTest{
                 .price(10_000)
                 .quantity(100)
                 .categoryName(Category.FOOD.toString())
-                .sellerId("1")
                 .build();
 
         return mvc.perform(post(REQUEST_URL)

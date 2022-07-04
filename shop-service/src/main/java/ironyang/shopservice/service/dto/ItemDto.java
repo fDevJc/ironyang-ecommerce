@@ -13,16 +13,14 @@ public class ItemDto {
     private int quantity;
 
     private Category category;
-    private String sellerId;
 
     @Builder
-    public ItemDto(Long id, String name, int price, int quantity, String categoryName, String sellerId) {
+    public ItemDto(Long id, String name, int price, int quantity, String categoryName) {
         this.id = id;
         this.name = name;
         this.price = price;
         this.quantity = quantity;
         this.category = Category.valueOf(categoryName);
-        this.sellerId = sellerId;
     }
 
     public static ItemDto of(Item item) {

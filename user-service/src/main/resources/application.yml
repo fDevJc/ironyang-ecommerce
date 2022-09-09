@@ -21,6 +21,8 @@ spring:
 
 eureka:
   client:
+    instance:
+      instance-id: ${spring.cloud.client.hostname}:${spirng.application.instance_id:${random.value}}
     register-with-eureka: true
     fetch-registry: true
     service-url:
